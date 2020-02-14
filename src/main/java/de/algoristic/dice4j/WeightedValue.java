@@ -8,7 +8,7 @@ public interface WeightedValue<T> {
 
   public T getValue();
 
-  public static <T> WeightedValue<T> of(final Entry<Double, T> entry) {
+  static <T> WeightedValue<T> of(final Entry<Double, T> entry) {
     double weight = entry.getKey();
     T value = entry.getValue();
     return of(weight, value);
