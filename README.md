@@ -68,3 +68,18 @@ class Person implements WeightedValue<Person> {
         .limit(100)
         .collect(Dice.toLoadedDice());
 ```
+### Streams
+For better interoperability with streams, the `Dice` class has also methods to transform a given `Stream` into an infinite stream of values provided by a dice, constructed from the existing stream.
+
+```java
+IntStream.rangeClosed(1, 6)
+    .mapToObj((i) -> i)
+	.collect(Dice.toTraditionalRandomStream())
+	.limit(10)
+	.forEach(/* do whatever you want*/);
+
+Stream.generate(personFactory) //see example above...
+    .collect(Dice.toLoadedRandomStream())
+    .limit(10)
+    .forEach(/* do whatever you want*/);
+```
