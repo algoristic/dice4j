@@ -19,9 +19,4 @@ final class DefaultWeightedRandom<T> implements WeightedRandom<T> {
   public T getValue() {
     return value;
   }
-
-  @Override
-  public String toString() {
-    return "{weight: " + weight + ", value: " + value + "}";
-  }
 }

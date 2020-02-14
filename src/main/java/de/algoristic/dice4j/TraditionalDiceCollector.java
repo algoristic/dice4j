@@ -8,26 +8,25 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-final class EquallyDistributedCollector<T>
-    implements Collector<T, EquallyDistributedDice<T>, Dice<T>> {
+final class TraditionalDiceCollector<T> implements Collector<T, TraditionalDice<T>, Dice<T>> {
 
   @Override
-  public Supplier<EquallyDistributedDice<T>> supplier() {
-    return EquallyDistributedDice::new;
+  public Supplier<TraditionalDice<T>> supplier() {
+    return TraditionalDice::new;
   }
 
   @Override
-  public BiConsumer<EquallyDistributedDice<T>, T> accumulator() {
+  public BiConsumer<TraditionalDice<T>, T> accumulator() {
     return (dice, value) -> dice.add(value);
   }
 
   @Override
-  public BinaryOperator<EquallyDistributedDice<T>> combiner() {
+  public BinaryOperator<TraditionalDice<T>> combiner() {
     return (left, right) -> left.addAll(right);
   }
 
   @Override
-  public Function<EquallyDistributedDice<T>, Dice<T>> finisher() {
+  public Function<TraditionalDice<T>, Dice<T>> finisher() {
     return (dice) -> dice;
   }
 
