@@ -1,11 +1,11 @@
 package de.algoristic.dice4j;
 
-final class DefaultWeightedRandom<T> implements WeightedRandom<T> {
+final class DefaultWeightedValue<T> implements WeightedValue<T> {
 
   final double weight;
   final T value;
 
-  public DefaultWeightedRandom(final double weight, final T value) {
+  public DefaultWeightedValue(final double weight, final T value) {
     this.weight = weight;
     this.value = value;
   }

@@ -8,7 +8,7 @@ public final class LoadedDice<T> extends AbstractDice<T> {
   }
 
   @Override
-  public LoadedDice<T> add(final WeightedRandom<T> rnd) {
+  public LoadedDice<T> add(final WeightedValue<T> rnd) {
     return (LoadedDice<T>) super.add(rnd);
   }
 

@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-public interface Dice<T> extends Iterable<WeightedRandom<T>> {
+public interface Dice<T> extends Iterable<WeightedValue<T>> {
 
   T roll();
 
@@ -40,27 +40,23 @@ public interface Dice<T> extends Iterable<WeightedRandom<T>> {
     return new TraditionalDiceCollector<T>();
   }
 
-  public static <T> Dice<T> getLoadedDice(Stream<WeightedRandom<T>> items) {
+  public static <T> Dice<T> getLoadedDice(Stream<WeightedValue<T>> items) {
     return items.collect(toLoadedDice());
   }
 
-  public static <T> Dice<T> getLoadedDice(Map<Double, T> weightMap) {
-    return getLoadedDice(weightMap.entrySet().stream().map(WeightedRandom::of));
-  }
-
-  public static <T> Dice<T> getLoadedDice(Set<WeightedRandom<T>> items) {
+  public static <T> Dice<T> getLoadedDice(Set<WeightedValue<T>> items) {
     return getLoadedDice(items.stream());
   }
 
-  public static <T> Dice<T> getLoadedDice(List<WeightedRandom<T>> items) {
+  public static <T> Dice<T> getLoadedDice(List<WeightedValue<T>> items) {
     return getLoadedDice(items.stream());
   }
 
-  public static <T> Dice<T> getLoadedDice(WeightedRandom<T>[] items) {
+  public static <T> Dice<T> getLoadedDice(WeightedValue<T>[] items) {
     return getLoadedDice(Arrays.asList(items));
   }
 
-  public static <T> Collector<WeightedRandom<T>, ?, Dice<T>> toLoadedDice() {
+  public static <T> Collector<WeightedValue<T>, ?, Dice<T>> toLoadedDice() {
     return new LoadedDiceCollector<T>();
   }
 }

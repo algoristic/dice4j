@@ -8,7 +8,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-final class LoadedDiceCollector<T> implements Collector<WeightedRandom<T>, LoadedDice<T>, Dice<T>> {
+final class LoadedDiceCollector<T> implements Collector<WeightedValue<T>, LoadedDice<T>, Dice<T>> {
 
   @Override
   public Supplier<LoadedDice<T>> supplier() {
@@ -16,7 +16,7 @@ final class LoadedDiceCollector<T> implements Collector<WeightedRandom<T>, Loade
   }
 
   @Override
-  public BiConsumer<LoadedDice<T>, WeightedRandom<T>> accumulator() {
+  public BiConsumer<LoadedDice<T>, WeightedValue<T>> accumulator() {
     return (dice, rnd) -> dice.add(rnd);
   }
 

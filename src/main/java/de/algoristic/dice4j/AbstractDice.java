@@ -20,14 +20,14 @@ abstract class AbstractDice<T> implements Dice<T> {
     return this;
   }
 
-  protected AbstractDice<T> add(final WeightedRandom<T> rnd) {
+  protected AbstractDice<T> add(final WeightedValue<T> rnd) {
     double weight = rnd.getWeight();
     T value = rnd.getValue();
     return add(weight, value);
   }
 
   protected AbstractDice<T> addAll(final Dice<T> other) {
-    for (WeightedRandom<T> rnd : other) {
+    for (WeightedValue<T> rnd : other) {
       this.add(rnd);
     }
     return this;
@@ -40,7 +40,7 @@ abstract class AbstractDice<T> implements Dice<T> {
   }
 
   @Override
-  public Iterator<WeightedRandom<T>> iterator() {
-    return map.entrySet().stream().map(WeightedRandom::of).collect(Collectors.toList()).iterator();
+  public Iterator<WeightedValue<T>> iterator() {
+    return map.entrySet().stream().map(WeightedValue::of).collect(Collectors.toList()).iterator();
   }
 }
