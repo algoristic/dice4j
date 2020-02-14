@@ -3,6 +3,7 @@ package de.algoristic.dice4j;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
@@ -23,6 +24,10 @@ public interface Dice<T> extends Iterable<WeightedRandom<T>> {
     return items.collect(toNormalDice());
   }
 
+  public static <T> Dice<T> getNormalDice(Set<T> items) {
+    return getNormalDice(items.stream());
+  }
+
   public static <T> Dice<T> getNormalDice(List<T> items) {
     return getNormalDice(items.stream());
   }
@@ -41,6 +46,10 @@ public interface Dice<T> extends Iterable<WeightedRandom<T>> {
 
   public static <T> Dice<T> getWeightedDice(Map<Double, T> weightMap) {
     return getWeightedDice(weightMap.entrySet().stream().map(WeightedRandom::of));
+  }
+
+  public static <T> Dice<T> getWeightedDice(Set<WeightedRandom<T>> items) {
+    return getWeightedDice(items.stream());
   }
 
   public static <T> Dice<T> getWeightedDice(List<WeightedRandom<T>> items) {
