@@ -7,8 +7,10 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
 
-final class LoadedDiceCollector<T> implements Collector<WeightedValue<T>, LoadedDice<T>, Dice<T>> {
+final class LoadedDiceStreamCollector<T>
+    implements Collector<WeightedValue<T>, LoadedDice<T>, Stream<T>> {
 
   @Override
   public Supplier<LoadedDice<T>> supplier() {
@@ -26,8 +28,8 @@ final class LoadedDiceCollector<T> implements Collector<WeightedValue<T>, Loaded
   }
 
   @Override
-  public Function<LoadedDice<T>, Dice<T>> finisher() {
-    return (dice) -> dice;
+  public Function<LoadedDice<T>, Stream<T>> finisher() {
+    return (dice) -> dice.stream();
   }
 
   @Override

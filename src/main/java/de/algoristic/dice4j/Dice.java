@@ -2,7 +2,6 @@ package de.algoristic.dice4j;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
@@ -40,6 +39,10 @@ public interface Dice<T> extends Iterable<WeightedValue<T>> {
     return new TraditionalDiceCollector<T>();
   }
 
+  public static <T> Collector<T, ?, Stream<T>> toTraditionalRandomStream() {
+    return new TraditionalDiceStreamCollector<>();
+  }
+
   public static <T> Dice<T> getLoadedDice(Stream<WeightedValue<T>> items) {
     return items.collect(toLoadedDice());
   }
@@ -58,5 +61,9 @@ public interface Dice<T> extends Iterable<WeightedValue<T>> {
 
   public static <T> Collector<WeightedValue<T>, ?, Dice<T>> toLoadedDice() {
     return new LoadedDiceCollector<T>();
+  }
+
+  public static <T> Collector<WeightedValue<T>, ?, Stream<T>> toLoadedRandomStream() {
+    return new LoadedDiceStreamCollector<>();
   }
 }
