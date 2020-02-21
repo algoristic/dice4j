@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 public interface Dice<T> extends Iterable<WeightedValue<T>> {
 
+  /** @throws EmptyDiceError Gets thrown, when the dice is rolled with no values assigned to it */
   T roll();
 
   default Stream<T> stream() {
@@ -53,10 +54,6 @@ public interface Dice<T> extends Iterable<WeightedValue<T>> {
 
   public static <T> Dice<T> getLoadedDice(List<WeightedValue<T>> items) {
     return getLoadedDice(items.stream());
-  }
-
-  public static <T> Dice<T> getLoadedDice(WeightedValue<T>[] items) {
-    return getLoadedDice(Arrays.asList(items));
   }
 
   public static <T> Collector<WeightedValue<T>, ?, Dice<T>> toLoadedDice() {
