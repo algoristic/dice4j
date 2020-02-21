@@ -38,7 +38,7 @@ abstract class AbstractDice<T> implements Dice<T> {
     return add(weight, val);
   }
 
-  protected AbstractDice<T> addAll(final List<WeightedValue<T>> values) {
+  protected AbstractDice<T> addList(final List<WeightedValue<T>> values) {
     values.forEach(this::add);
     return this;
   }
