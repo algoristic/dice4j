@@ -1,21 +1,33 @@
 package de.algoristic.dice4j;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 abstract class AbstractDice<T> implements Dice<T> {
 
-  protected final Random rnd = new Random();
+  protected final Random rnd;
   protected final NavigableMap<Double, T> map = new TreeMap<Double, T>();
-  protected double total;
+  protected double total = 0d;
+
+  private final List<WeightedValue<T>> rawValues = new ArrayList<>();
+
+  protected AbstractDice() {
+    this(new Random());
+  }
+
+  protected AbstractDice(Random rnd) {
+    this.rnd = rnd;
+  }
 
   protected AbstractDice<T> add(final double weight, final T value) {
     if (weight > 0) {
       total += weight;
       map.put(total, value);
+      rawValues.add(new DefaultWeightedValue<T>(weight, value));
     }
     return this;
   }
@@ -36,11 +48,15 @@ abstract class AbstractDice<T> implements Dice<T> {
   @Override
   public T roll() {
     double rndValue = rnd.nextDouble() * total;
-    return map.higherEntry(rndValue).getValue();
+    try {
+      return map.higherEntry(rndValue).getValue();
+    } catch (NullPointerException e) {
+      throw new EmptyDiceException("the dice contains no values; add values before rolling", e);
+    }
   }
 
   @Override
   public Iterator<WeightedValue<T>> iterator() {
-    return map.entrySet().stream().map(WeightedValue::of).collect(Collectors.toList()).iterator();
+    return rawValues.iterator();
   }
 }
