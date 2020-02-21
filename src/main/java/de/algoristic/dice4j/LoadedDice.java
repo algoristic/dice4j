@@ -22,10 +22,9 @@ public final class LoadedDice<T> extends AbstractDice<T> {
   public LoadedDice<T> add(final WeightedValue<T> value) {
     return (LoadedDice<T>) super.add(value);
   }
-  
+
   public LoadedDice<T> add(final List<WeightedValue<T>> values) {
-	  values.forEach(this::add);
-	  return this;
+    return (LoadedDice<T>) super.addAll(values);
   }
 
   public LoadedDice<T> addAll(final LoadedDice<T> other) {
